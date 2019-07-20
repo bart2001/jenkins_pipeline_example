@@ -1,5 +1,9 @@
 pipeline {
-    agent docker { image 'nginx:latest' }
+    agent {
+        docker {
+            image 'nginx:latest'
+        }
+    }
     stages {
         stage('Check') {
             steps {
