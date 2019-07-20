@@ -32,5 +32,5 @@ spec:
       volumes:
         - name: workdir1
           hostPath:
-            path: /Users/bart2001/www/minikube/logs/
+            path: /Users/bart2001/www/jenkins_pipeline_example/logs/
             type: "DirectoryOrCreate"
