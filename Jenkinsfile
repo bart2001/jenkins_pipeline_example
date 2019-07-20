@@ -3,9 +3,9 @@ pipeline {
         docker { image 'node:7-alpine' }
     }
     stages {
-        stage('Test') {
+        stage('delploy to kubernetes') {
             steps {
-                sh 'node --version'
+                sh 'kubectl --kubeconfig ./config apply -f subpath.yaml'
             }
         }
     }
