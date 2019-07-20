@@ -1,8 +1,9 @@
 pipeline {
-    agent {
+    agent any
+    //agent {
         //docker { image 'node:7-alpine' }
-        any
-    }
+    //    any
+    //}
     stages {
         stage('delploy to kubernetes') {
             steps {
