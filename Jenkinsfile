@@ -1,12 +1,17 @@
 pipeline {
-    agent any
-    //agent {
-        //docker { image 'node:7-alpine' }
-    //    any
-    //}
+    agent none
     stages {
-        stage('delploy to kubernetes') {
+        stage('Test') {
+            agent docker { image 'node:7-alpine' }
             steps {
+                sh 'node --version'
+                sh 'touch ./newfile.txt'
+            }
+        }
+        stage('delploy to kubernetes') {
+            agent any
+            steps {
+                sh 'ls -al'
                 sh 'kubectl --kubeconfig ./config apply -f subpath.yaml'
             }
         }
