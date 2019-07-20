@@ -1,6 +1,12 @@
 pipeline {
-    agent any
+    agent docker { image 'nginx:latest' }
     stages {
+        stage('Check') {
+            steps {
+                sh 'pwd'
+                sh 'ls -al'
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Building..'
