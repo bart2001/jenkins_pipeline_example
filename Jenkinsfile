@@ -18,7 +18,8 @@ pipeline {
                 unstash 'newfile'
                 sh 'cat newfile.txt'
                 sh 'ls -al'
-                sh 'kubectl --kubeconfig ./config apply -f subpath.yaml'
+                sh 'jinja2 subpath.yaml.j2 -D namespace=default -o out.yaml'
+                sh 'kubectl --kubeconfig ./config apply -f out.yaml'
             }
         }
     }

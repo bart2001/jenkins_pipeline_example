@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subpath-deployment
+  namespace: {{ namespace }}
+  labels:
+    app: subpath
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: subpath
+  template:
+    metadata:
+      labels:
+        app: subpath
+    spec:
+      containers:
+        - name: container1
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+          image: busybox
+          command: [ "sh", "-c", "while [ true ]; do echo 'Hello'; sleep 10; done | tee -a /logs/hello.txt" ]
+          volumeMounts:
+            - name: workdir1
+              mountPath: /logs
+              #subPathExpr: $(POD_NAME)
+              subPath: $(POD_NAME)
+      volumes:
+        - name: workdir1
+          hostPath:
+            path: /Users/bart2001/www/jenkins_pipeline_example/logs/
+            type: "DirectoryOrCreate"
